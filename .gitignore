@@ -69,10 +69,15 @@ yarn-error.log*
 # local env files
 .env*.local
 
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+<<<<<<< HEAD
 >>>>>>> 6bfe7ff (Initial commit from Create Next App)
+=======
+.env
+>>>>>>> b08198b (iniciando o app barber)
