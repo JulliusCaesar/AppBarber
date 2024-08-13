@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "extends": "next/core-web-vitals",
   "rules": {
     "no-unused-vars": "error"
@@ -7,4 +8,10 @@
 =======
   "extends": "next/core-web-vitals"
 >>>>>>> 6bfe7ff (Initial commit from Create Next App)
+=======
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-uused-vars": "error"
+  }
+>>>>>>> c5df9f4 (chore: add git hooks setup)
 }
