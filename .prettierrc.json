@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 {
     "plugins": ["prettier-plugin-tailwindcss"],
     "tabWidht": 2,
     "semi": false
+=======
+{
+    "plugins": ["prettier-plugin-tailwindcss"],
+    "tabWidht": 2,
+    "semi": false
+>>>>>>> 3c631b7 (chore: add prettier tailwind plugin)
 }
