@@ -11,7 +11,7 @@
 =======
   "extends": "next/core-web-vitals",
   "rules": {
-    "no-uused-vars": "error"
+    "no-unused-vars": "error"
   }
 >>>>>>> c5df9f4 (chore: add git hooks setup)
 }
