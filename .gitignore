@@ -77,7 +77,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 6bfe7ff (Initial commit from Create Next App)
 =======
 .env
 >>>>>>> b08198b (iniciando o app barber)
+=======
+.env
+logo1.png
+>>>>>>> 9afeee9 (feat: add sidebar)
