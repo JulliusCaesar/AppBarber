@@ -30,3 +30,14 @@ export const getBarbershop = async ({ searchParams }: any) => {
     },
   })
 }
+
+export const getIdBarbershops = async ({ params }: any) => {
+  return db.barbershop.findUnique({
+    where: {
+      id: params.id,
+    },
+    include: {
+      services: true,
+    },
+  })
+}
