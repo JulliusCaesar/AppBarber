@@ -41,3 +41,15 @@ export const getIdBarbershops = async ({ params }: any) => {
     },
   })
 }
+
+export const getOrderByBarbershops = async () => {
+  return db.barbershop.findMany({
+    orderBy: {
+      name: "desc",
+    },
+  })
+}
+
+export const getSampleBooking = async () => {
+  return db.barbershop.findMany({})
+}

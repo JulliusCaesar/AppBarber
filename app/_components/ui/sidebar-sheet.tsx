@@ -8,13 +8,12 @@ import Link from "next/link"
 import { quickSearchOptions } from "@/app/_constants/search"
 import Image from "next/image"
 import { Dialog, DialogContent, DialogTrigger } from "./dialog"
-import { signOut, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import SignInDialog from "../sign-in-dialog"
+import SignOutDialog from "../sign-out-dialog"
 
 const SidebarSheet = () => {
   const { data } = useSession()
-  // const handleLoginWithGoogleClick = () => signIn("google")
-  const handleLogoutClick = () => signOut()
 
   return (
     <SheetContent className="overflow-y-auto">
@@ -87,15 +86,22 @@ const SidebarSheet = () => {
         ))}
       </div>
       {data?.user && (
-        <div className="flex flex-col gap-2 py-5">
-          <Button
-            variant="ghost"
-            className="justify-start gap-2"
-            onClick={handleLogoutClick}
-          >
-            <LogOutIcon size={18} />
-            Sair da conta
-          </Button>
+        <div className="flex items-center justify-between gap-5 border-b border-solid py-3">
+          <>
+            <h2 className="font-bold">Sair da conta</h2>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Link href="/">
+                  <Button size="icon" variant="ghost">
+                    <LogOutIcon />
+                  </Button>
+                </Link>
+              </DialogTrigger>
+              <DialogContent className="w-[90%]">
+                <SignOutDialog />
+              </DialogContent>
+            </Dialog>
+          </>
         </div>
       )}
     </SheetContent>
