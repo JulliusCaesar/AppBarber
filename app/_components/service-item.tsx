@@ -24,6 +24,7 @@ import { Dialog, DialogContent } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 import BookingSummary from "./booking-summary"
 import { useRouter } from "next/navigation"
+import { isSunday } from "date-fns" // Importa a função isSunday do date-fns
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -144,6 +145,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   }
 
   const handleDateSelect = (date: Date | undefined) => {
+    if (date && isSunday(date)) {
+      // Se for domingo, não permita a seleção
+      toast.error("Reservas não estão disponíveis aos domingos.")
+      return
+    }
     setSelectedDay(date)
   }
 
