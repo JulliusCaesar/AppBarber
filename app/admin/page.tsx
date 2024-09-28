@@ -54,7 +54,7 @@ const PageAdmin = async () => {
         </h2>
         <p>
           <span className="capitalize">
-            {format(new Date(), "EEEE, dd", { locale: ptBR })}
+            {format(new Date(), "EEEE, dd ", { locale: ptBR })}
           </span>
           de
           <span className="capitalize">
