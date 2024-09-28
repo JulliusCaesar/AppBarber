@@ -19,60 +19,72 @@ interface Booking {
 
 const PageAdmin = async () => {
   const session = await getServerSession(authOptions)
-
-  // Buscando todos os agendamentos e ordenando por data e hora
-  const bookings: Booking[] = await db.booking.findMany({
-    where: {
-      date: {
-        gte: new Date(), // Filtra para pegar apenas agendamentos com data maior ou igual à data atual
-      },
-    },
-    orderBy: {
-      date: "asc", // Ordena por data em ordem crescente
-    },
-    select: {
-      date: true,
-      service: {
-        select: {
-          name: true,
+  if (session?.user?.email == process.env.ADMIN_LOGIN_SECRET) {
+    console.log("Funcionou")
+    // Buscando todos os agendamentos e ordenando por data e hora
+    const bookings: Booking[] = await db.booking.findMany({
+      where: {
+        date: {
+          gte: new Date(), // Filtra para pegar apenas agendamentos com data maior ou igual à data atual
         },
       },
-      user: {
-        select: {
-          name: true, // Permite que o nome do usuário seja null
+      orderBy: {
+        date: "asc", // Ordena por data em ordem crescente
+      },
+      select: {
+        date: true,
+        service: {
+          select: {
+            name: true,
+          },
+        },
+        user: {
+          select: {
+            name: true, // Permite que o nome do usuário seja null
+          },
         },
       },
-    },
-  })
+    })
 
-  return (
-    <div>
-      <Header />
-      <div className="p-5">
-        <h2 className="text-xl font-bold">
-          Olá, {session?.user ? session.user.name : "Erro"}{" "}
-        </h2>
-        <p>
-          <span className="capitalize">
-            {format(new Date(), "EEEE, dd ", { locale: ptBR })}
-          </span>
-          de
-          <span className="capitalize">
-            {format(new Date(), " MMMM", { locale: ptBR })}{" "}
-          </span>
-        </p>
-      </div>
+    return (
+      <div>
+        <Header />
+        <div className="p-5">
+          <h2 className="text-xl font-bold">
+            Olá, {session?.user ? session.user.name : "Erro"}{" "}
+          </h2>
+          <p>
+            <span className="capitalize">
+              {format(new Date(), "EEEE, dd ", { locale: ptBR })}
+            </span>
+            de
+            <span className="capitalize">
+              {format(new Date(), " MMMM", { locale: ptBR })}{" "}
+            </span>
+          </p>
+        </div>
 
-      <div className="p-5">
-        <h1 className="text-xl font-bold">Agendamentos</h1>
-      </div>
+        <div className="p-5">
+          <h1 className="text-xl font-bold">Agendamentos</h1>
+        </div>
 
-      <div className="p-5">
-        {/* Passamos os agendamentos para o BookingAdmin */}
-        <BookingAdmin bookings={bookings} />
+        <div className="p-5">
+          {/* Passamos os agendamentos para o BookingAdmin */}
+          <BookingAdmin bookings={bookings} />
+        </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div>
+        <Header />
+        <div className="p-5">
+          <h1 className="text-xl font-bold">Acesso Restrito</h1>
+          <p>Você não possui permissão para acessar essa página.</p>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default PageAdmin
