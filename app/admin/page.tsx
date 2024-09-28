@@ -22,6 +22,11 @@ const PageAdmin = async () => {
 
   // Buscando todos os agendamentos e ordenando por data e hora
   const bookings: Booking[] = await db.booking.findMany({
+    where: {
+      date: {
+        gte: new Date(), // Filtra para pegar apenas agendamentos com data maior ou igual à data atual
+      },
+    },
     orderBy: {
       date: "asc", // Ordena por data em ordem crescente
     },
@@ -34,7 +39,7 @@ const PageAdmin = async () => {
       },
       user: {
         select: {
-          name: true,
+          name: true, // Permite que o nome do usuário seja null
         },
       },
     },
