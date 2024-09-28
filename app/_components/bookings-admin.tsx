@@ -1,5 +1,7 @@
+import { format } from "date-fns"
 import { Badge } from "./ui/badge"
 import { Card, CardContent } from "./ui/card"
+import { ptBR } from "date-fns/locale"
 
 // Interface para os dados de agendamento
 interface Booking {
@@ -30,7 +32,15 @@ const BookingAdmin: React.FC<BookingAdminProps> = ({ bookings }) => {
                   </Badge>
                   <h3 className="font-semibold">{booking.service.name}</h3>
                   <p>Cliente: {booking.user.name}</p>
-                  <p>Data: {new Date(booking.date).toLocaleDateString()}</p>
+                  <p>
+                    Data:
+                    {format(new Date(booking.date), " dd", {
+                      locale: ptBR,
+                    })} de{" "}
+                    {format(new Date(booking.date), "MMMM", { locale: ptBR })}{" "}
+                    de{" "}
+                    {format(new Date(booking.date), "yyyy", { locale: ptBR })}
+                  </p>
                   <p>Hora: {new Date(booking.date).toLocaleTimeString()}</p>
                 </div>
               </div>
