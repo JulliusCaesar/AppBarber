@@ -36,12 +36,18 @@ const BookingAdmin: React.FC<BookingAdminProps> = ({ bookings }) => {
                     Data:
                     {format(new Date(booking.date), " dd", {
                       locale: ptBR,
-                    })} de{" "}
+                    })}{" "}
+                    de{" "}
                     {format(new Date(booking.date), "MMMM", { locale: ptBR })}{" "}
                     de{" "}
                     {format(new Date(booking.date), "yyyy", { locale: ptBR })}
                   </p>
-                  <p>Hora: {new Date(booking.date).toLocaleTimeString()}</p>
+                  <p>
+                    Hora:{" "}
+                    {format(new Date(booking.date), "HH : mm", {
+                      locale: ptBR,
+                    })}
+                  </p>
                 </div>
               </div>
             ))
