@@ -71,7 +71,7 @@ const Home = async () => {
         <div className="relative mt-6 h-[150px] w-full">
           <Image
             alt="Agende nos melhores com FSW Barber"
-            src="/banner-01.png"
+            src="/banner-02.png"
             fill
             className="rounded-xl object-cover"
           />
