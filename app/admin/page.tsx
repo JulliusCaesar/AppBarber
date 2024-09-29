@@ -20,7 +20,6 @@ interface Booking {
 const PageAdmin = async () => {
   const session = await getServerSession(authOptions)
   if (session?.user?.email == process.env.ADMIN_LOGIN_SECRET) {
-    console.log("Funcionou")
     // Buscando todos os agendamentos e ordenando por data e hora
     const bookings: Booking[] = await db.booking.findMany({
       where: {
