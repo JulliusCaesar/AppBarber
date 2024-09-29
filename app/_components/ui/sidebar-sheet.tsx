@@ -1,6 +1,12 @@
 "use client"
 
-import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from "lucide-react"
+import {
+  CalendarIcon,
+  HomeIcon,
+  LogInIcon,
+  LogOutIcon,
+  SquareCode,
+} from "lucide-react"
 import { Button } from "./button"
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./sheet"
 import { Avatar, AvatarImage } from "./avatar"
@@ -58,6 +64,14 @@ const SidebarSheet = () => {
             </Link>
           </Button>
         </SheetClose>
+        {data?.user && (
+          <Button className="justify-start gap-2" variant="ghost" asChild>
+            <Link href="/admin">
+              <SquareCode size={18} />
+              Painel Administrativo
+            </Link>
+          </Button>
+        )}
         {data?.user && (
           <Button className="justify-start gap-2" variant="ghost" asChild>
             <Link href="/bookings">
