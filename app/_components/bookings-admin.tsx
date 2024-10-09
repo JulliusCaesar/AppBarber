@@ -22,6 +22,25 @@ interface BookingAdminProps {
 }
 
 const BookingAdmin: React.FC<BookingAdminProps> = ({ bookings }) => {
+  // Estado para armazenar as datas bloqueadas
+  const [blockedDates, setBlockedDates] = useState<Date[]>([])
+
+  const toggleBlockedDate = (date: Date) => {
+    setBlockedDates((prevBlockedDates) => {
+      if (
+        prevBlockedDates.some(
+          (blockedDate) => blockedDate.getTime() === date.getTime(),
+        )
+      ) {
+        return prevBlockedDates.filter(
+          (blockedDate) => blockedDate.getTime() !== date.getTime(),
+        )
+      } else {
+        return [...prevBlockedDates, date]
+      }
+    })
+  }
+
   // Estado para armazenar a data selecionada no calendário
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
 
@@ -38,19 +57,27 @@ const BookingAdmin: React.FC<BookingAdminProps> = ({ bookings }) => {
 
   return (
     <>
-      <Card className="min-w-[90%]">
-        <CardContent className="flex flex-col p-0">
+      <Card className="min-w-[70%]">
+        <CardContent className="flex flex-col items-center p-0">
           <h2 className="mb-5 text-xl font-bold">Calendário de Agendamentos</h2>
 
           {/* Componente de Calendário */}
           <Calendar
             selected={selectedDate}
-            onDayClick={setSelectedDate} // Atualiza a data selecionada ao clicar em um dia
-            modifiers={{ fullyBooked: fullyBookedDates }} // Marcamos as datas com agendamentos
+            onDayClick={(day) => {
+              setSelectedDate(day)
+              toggleBlockedDate(day) // Adiciona ou remove a data bloqueada ao clicar
+            }}
+            modifiers={{
+              fullyBooked: fullyBookedDates,
+              blocked: blockedDates, // Adiciona as datas bloqueadas ao calendário
+            }}
             modifiersClassNames={{
               fullyBooked: "bg-primary text-primary-foreground",
+              blocked: "bg-red-500 text-white", // Define uma classe para as datas bloqueadas
             }}
           />
+
           <h2 className="mt-8 text-xl font-bold">Lista de Agendamentos</h2>
 
           {/* Lista de Agendamentos Filtrados */}
@@ -96,44 +123,3 @@ const BookingAdmin: React.FC<BookingAdminProps> = ({ bookings }) => {
 }
 
 export default BookingAdmin
-
-{
-  /* {bookings.length > 0 ? (
-            bookings.map((booking, index) => (
-              <div key={index} className="flex justify-between py-5 pl-5">
-                <div className="flex flex-col gap-2">
-                  <Badge className="w-fit" variant="default">
-                    Agendado
-                  </Badge>
-                  <h3 className="font-semibold">{booking.service.name}</h3>
-                  <p>Cliente: {booking.user.name}</p>
-                  <p>
-                    Data:
-                    {format(new Date(booking.date), " dd", {
-                      locale: ptBR,
-                    })}{" "}
-                    de{" "}
-                    {format(new Date(booking.date), "MMMM", { locale: ptBR })}{" "}
-                    de{" "}
-                    {format(new Date(booking.date), "yyyy", { locale: ptBR })}
-                  </p>
-                  <p>
-                    Hora:{" "}
-                    {format(new Date(booking.date), "HH : mm", {
-                      locale: ptBR,
-                    })}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>Sem agendamentos no momento.</p>
-          )}
-        </CardContent>
-      </Card>
-    </>
-  )
-}
-
-export default BookingAdmin */
-}
